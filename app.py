@@ -10,6 +10,8 @@ from datetime import datetime as O
 from user_agent import generate_user_agent as V
 from cfonts import render as P
 import os,time
+from flask import Flask, request
+
 W='8730065471:AAFFqTLLSmlQI_n7ROv5Q8UStQA2spHj9Fc'
 A=T.TeleBot(W)
 
@@ -90,7 +92,20 @@ def A8(message):
 	B=message
 	if not E(B.chat.id):A.reply_to(B,'❌ You are not authorized to use this bot');return
 	N(B.chat.id)
-F(f"Bot started...")
-F(f"Developed By @Beasteren")
-F(f"Admin ID: {K}")
-A.infinity_polling()
+
+if __name__ == "__main__":
+    F(f"Bot started...")
+    F(f"Developed By @Beasteren")
+    F(f"Admin ID: {K}")
+    A.infinity_polling()
+else:
+    web_app = Flask(__name__)
+    
+    @web_app.route("/", methods=['POST', 'GET'])
+    def webhook():
+        if request.method == 'POST':
+            json_str = request.get_data().decode('UTF-8')
+            update = T.types.Update.de_json(json_str)
+            A.process_new_updates([update])
+            return "OK", 200
+        return "Bot is running", 200
