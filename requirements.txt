@@ -1,0 +1,6 @@
+pyTelegramBotAPI
+httpx
+requests
+user_agent
+cfonts
+Flask
